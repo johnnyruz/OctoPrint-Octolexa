@@ -1,0 +1,54 @@
+<form class="form-horizontal">
+    <h4>{{ _('Octolexa Configuration') }}</h4>
+	<br>
+    <p><b>{{ _('Step 1: ') }}</b>{{ _('Enter a name to identify this printer.') }}</p>
+
+    <div class="control-group">
+        <label class="control-label">{{ _('Printer Name') }}</label>
+        <div class="controls">
+            <input type="text" class="input-block-level" id="printer_name" data-bind="value: settings.plugins.octolexa.printer_name">
+        </div>
+    </div>
+	
+	<br>
+    <p><b>{{ _('Step 2: ') }}</b>{{ _('Click ') }}<u>{{ _('Request Printer Registration') }}</u>{{ _(' to be directed to the login page. If you have not yet registered, follow the steps on that page to create an account.') }}</p>
+	
+	<div class="control-group">
+        <div class="controls">
+            <button class="btn" data-bind="click: function() { requestRegistration() }">{{ _('Request Printer Registration') }}</button> 
+			<br>
+			<span data-bind="visible: requestResult(), text: requestMessage"></span>
+        </div>
+    </div>
+	
+	<br>
+    <p><b>{{ _('Step 3: ') }}</b>{{ _('Enter the Unique Key that is returned after successful registration.') }}</p>
+
+    <div class="control-group">
+        <label class="control-label">{{ _('Printer Unique Key') }}</label>
+        <div class="controls">
+            <input type="text" class="input-block-level" id="printer_uid" data-bind="value: settings.plugins.octolexa.printer_uid">
+        </div>
+    </div>
+    
+	<br>
+    <p><b>{{ _('Step 4: ') }}</b>{{ _('Click ') }}<u>{{ _('Verify Registration') }}</u>{{ _(' to check that your Printer Name and Unique Key are correctly configured.') }}</p>
+
+    <div class="control-group">
+        <div class="controls">
+            <button class="btn" data-bind="click: function() { verifyRegistration() }"><i class="icon-spinner icon-spin" data-bind="visible: testActive()"></i> {{ _('Verify Registration') }}</button> 
+			<span data-bind="visible: testResult() || settings.plugins.octolexa.printer_is_registered(), text: testMessage"></span>
+        </div>
+    </div>
+	
+	<br>
+    <p><b>{{ _('Step 5: ') }}</b>{{ _('Click ') }}<u>{{ _('Save') }}</u>{{ _(' to complete the setup.') }}</p>
+
+
+	<br>
+	<div>
+		<span>{{ _('Last Published Status Update') }}: <span data-bind="text: settings.plugins.octolexa.printer_last_update_result()"></span></span>
+	</div>
+
+</form>
+	
