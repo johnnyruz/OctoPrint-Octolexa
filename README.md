@@ -42,5 +42,5 @@ or manually using this URL:
  - Previous Job Duration
  - Previous Job Result (Completed, Cancelled, Failed, etc.)
  
-_Printers and their status are removed from the database if they have not checked-in within 10 days
+_Printers and their status are removed from the database if they have not checked-in within 10 days_
 
