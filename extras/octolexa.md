@@ -8,7 +8,7 @@ author: John Ruzick
 license: AGPLv3
 
 # TODO
-date: today's date in format 2019-07-29
+date: 2019-07-29
 
 homepage: https://github.com/johnnyruz/OctoPrint-Octolexa
 source: https://github.com/johnnyruz/OctoPrint-Octolexa
@@ -63,7 +63,7 @@ Installation is straightforward and broken down into easy steps on the plugin se
 ## Privacy
 
 This plugin uses two external services to function. A user management and registration portal, and an API/Database to store printer information. 
-Upon successful configuration, your OctoPrint serve will occasionally publish updates to the service via the API. These updates are secured
+Upon successful configuration, your OctoPrint server will occasionally publish updates to the service via the API. These updates are secured
 using your unique printer API key. This is NOT your OctoPrint API key! At no point will you need to provide your OctoPrint API key or Url, and
 you do not need to expose your server to the public.
 
