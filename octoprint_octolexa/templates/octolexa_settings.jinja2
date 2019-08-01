@@ -44,7 +44,30 @@
 	<br>
     <p><b>{{ _('Step 5: ') }}</b>{{ _('Click ') }}<u>{{ _('Save') }}</u>{{ _(' to complete the setup.') }}</p>
 
+	<br>
+	<br>
+    <p><b>{{ _('(Optional) Step 6: ') }}</b>{{ _('Adjust how often you wish to publish status updates to Octolexa.') }}</p>
 
+	<br>
+	<div class="control-group">
+		<div class="controls">
+			<div id="control-update-frequency" class="control">
+				<div class="slider slider-horizontal" style="width: 265px;">
+					<div class="slider-track">
+					<div class="slider-selection" style="left: 0%; width: 50%;">
+				</div>
+				<div class="slider-handle round" style="left: 50%;"></div>
+					<div class="slider-handle round hide" style="left: 0%;"></div>
+				</div>
+				<div class="tooltip top hide" style="top: -14px; left: 61.3188px;">
+					<div class="tooltip-arrow"></div>
+				</div>
+				<input type="number" style="width: 250px; display: none;" data-bind="slider: {min: 30, max: 300, step: 5, value: settings.plugins.octolexa.update_settings_interval, tooltip: 'hide'}"></div>
+			</div>
+			<button class="btn btn-block" style="width: 267px; margin: 10px 0px;" disabled="">Update Frequency: <span data-bind="text: settings.plugins.octolexa.update_settings_interval() + ' sec'"><span></button>
+		</div>
+	</div>
+	
 	<br>
 	<div>
 		<span>{{ _('Last Published Status Update') }}: <span data-bind="text: settings.plugins.octolexa.printer_last_update_result()"></span></span>

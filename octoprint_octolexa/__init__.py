@@ -40,7 +40,7 @@ class OctolexaPlugin(octoprint.plugin.StartupPlugin,
 	def get_settings_defaults(self):
 		return dict(
 			# put your plugin's default settings here
-			update_settings_interval=10,
+			update_settings_interval=120,
 			baseApiUrl="https://octoprintalexaap.azurewebsites.net",
 			baseRegistrationUrl="https://octoalexa.auth.us-east-1.amazoncognito.com/login",
 			registration_client_key="3kk2ejt1u5bfv5un2sh1r8jjdf",
@@ -50,7 +50,19 @@ class OctolexaPlugin(octoprint.plugin.StartupPlugin,
 			printer_last_update_result=None
 		)
 
-	##~~ AssetPlugin mixin
+	def on_settings_save(self, data):
+        	self._logger.info("saving settings")
+		old_interval = self._settings.get_int(["update_settings_interval"])
+
+        	octoprint.plugin.SettingsPlugin.on_settings_save(self, data)
+
+        	new_interval = self._settings.get_int(["update_settings_interval"])
+
+		if old_interval != new_interval:
+			self._restart_timer()
+
+
+	##~~ Asset Plugin mixin
 
 	def get_assets(self):
 		# Define your plugin's asset files to automatically include in the
@@ -114,7 +126,9 @@ class OctolexaPlugin(octoprint.plugin.StartupPlugin,
 
 
 	def run_timer_job(self):
-		self._update_status.update_status(self._printer, self._settings)
+		shouldRestartTimer = self._update_status.update_status(self._printer, self._settings)
+		if (shouldRestartTimer == True):
+			self._restart_timer()
 
 
 

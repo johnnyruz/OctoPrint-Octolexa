@@ -20,6 +20,7 @@ class UpdateStatus:
 			'last_print_result': 9
 		}
 		self._previousJobResult = ""
+		self._failureCount = 0
 
 	def handle_event(self, event, payload):
 		if event == Events.PRINT_STARTED:
@@ -123,8 +124,31 @@ class UpdateStatus:
 						else:
 							self._logger.error("Failed to update printer status. Invalid Response from Server")
 							settings.set(['printer_last_update_result'], 'ERROR')
+						self._failureCount += 1
 					else:
+						self._failureCount = 0
 						settings.set(['printer_last_update_result'], datetime.datetime.now())
 			except BaseException as e:
+				self._failureCount += 1
 				self._logger.error("Failed to update printer status (%s)" % str(e))
 
+
+			#Back-off frequency of updates if we encounter 10 failures in a row
+			if (self._failureCount > 0 and self._failureCount % 10 == 0 and settings.get_int(['update_settings_interval']) < 300):
+
+				currentInterval = settings.get_int(['update_settings_interval'])
+				currentInterval *= 2
+
+				if (currentInterval > 300):
+					self._logger.info("Octolexa Backoff. New interval %i" % 300)
+					settings.set(['update_settings_interval'], 300)
+					settings.save()
+					return True
+				else:
+					self._logger.info("Octolexa Backoff. New interval %i" % currentInterval)
+					settings.set(['update_settings_interval'], currentInterval)
+					settings.save()
+					return True
+
+
+		return False

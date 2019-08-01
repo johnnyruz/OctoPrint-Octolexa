@@ -19,7 +19,7 @@ $(function() {
 		self.requestActive = ko.observable(false);
         self.requestResult = ko.observable(false);
         self.requestMessage = ko.observable();
-		
+				
 		self.requestRegistration = function() {
 			
 			self.requestResult(false);
